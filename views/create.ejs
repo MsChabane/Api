@@ -1,0 +1,70 @@
+<%- include('parts/header.ejs') %>
+
+    <body>
+        <div class="container">
+            <h1>create user</h1>
+
+            <form action="/api/users/register" method="post" id="form">
+                <div class="container">
+                    <div class="mb-3 row">
+                        <label for="firstname" class="col-form-label mb-1 col-sm-2 text-center">First name: </label>
+                        <div class=" col-sm-10 mb-2">
+                            <input type="text" name="firstname" class="form-control" id="firstname"
+                                placeholder="exp : Hanry" value="test">
+                        </div>
+                        <label for="lastname" class="col-form-label mb-1 col-sm-2 text-center">Last name: </label>
+                        <div class=" col-sm-10 mb-2 ">
+                            <input type="text" name="lastname" class="form-control" id="lastname"
+                                placeholder="exp : parcker">
+                        </div>
+                        <label for="username" class="col-form-label mb-1 col-sm-2 text-center"> Username: </label>
+                        <div class=" col-sm-10 mb-2 ">
+                            <input type="text" name="username" class="form-control" id="username"
+                                placeholder="exp : hanryPck" required>
+                        </div>
+                        <div class="mb-2 form-check d-flex justify-content-center align-items-center ">
+                            <input type="checkbox" name="isAdmin" class="form-check-input" id="Admin">
+                            <label for="Admin" class="form-check-label  ms-2 fs-4">Admin </label>
+                        </div>
+                        <div class=" d-flex justify-content-center align-items-center mt-5 ">
+                            <button class="btn btn-primary" type="submit">Register</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+
+            <a class="btn btn-secondary" href="/api/users">Go Back </a>
+        </div>
+        <%- include('parts/footer.ejs') %>
+            <script>
+                let form = document.getElementById('form')
+
+                form.addEventListener('submit', async (e) => {
+
+                    e.preventDefault()
+                    const username = document.getElementById('username').value;
+                    const firstname = document.getElementById('firstname').value;
+                    const lastname = document.getElementById('lastname').value;
+                    const Admin = document.getElementById('Admin');
+                    const isAdmin = Admin.checked;
+                    const data = { username, firstname, lastname, isAdmin };
+                    console.log(data);
+                    let res = await fetch('http://localhost:5000/api/users', {
+
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: {
+                            "Content-Type": "application/json; charset=UTF-8"
+                        }
+                    });
+
+                    console.log(res);
+
+                })
+            </script>
+            <script src="/bootstrap.bundle.min.js"></script>
+    </body>
+
+    </html>

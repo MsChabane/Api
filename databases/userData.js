@@ -19,7 +19,7 @@ const addUser = (user)=>{
     nextId++;
 }
 const deleteUser =(id)=>{
-    users = users.filter(user=> user.id === id); 
+    users = users.filter(user=> user.id !== id); 
 }
 const findUserByUsername =(username)=>{
     return users.find(user=> user.username.includes(username));
